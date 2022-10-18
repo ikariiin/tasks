@@ -1,0 +1,21 @@
+{
+  "name": "common",
+  "version": "0.0.1-dev",
+  "author": {
+    "name": "Gourab Nag",
+    "email": "gourabnag12@gmail.com"
+  },
+  "main": "dist/index.js",
+  "license": "MIT",
+  "dependencies": {
+    "class-validator": "^0.13.2",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.3.10",
+    "typescript": "^4.8.4"
+  },
+  "scripts": {
+    "build:watch": "tsc --watch",
+    "build": "tsc"
+  },
+  "types": "dist/index.d.ts"
+}

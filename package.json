@@ -1,0 +1,17 @@
+{
+  "name": "tasks",
+  "version": "0.0.1-dev",
+  "main": "index.js",
+  "repository": "https://github.com/SaitamaSama/tasks",
+  "author": {
+    "name": "Gourab Nag",
+    "email": "gourabnag12@gmail.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
