@@ -20,7 +20,7 @@ const Container = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  padding: theme.spacing(10),
+  padding: theme.spacing(10, 18),
 }));
 
 const Form = styled("form")(({ theme }) => ({

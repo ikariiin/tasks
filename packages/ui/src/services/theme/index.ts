@@ -74,6 +74,17 @@ export const theme = createTheme({
         }),
       },
     },
+    // Similarly, make the border for outlined buttons 2px wide
+    MuiButton: {
+      styleOverrides: {
+        outlined: {
+          borderWidth: 2,
+          "&:hover": {
+            borderWidth: 2,
+          },
+        },
+      },
+    },
   },
   shape: {
     borderRadius: 8,
