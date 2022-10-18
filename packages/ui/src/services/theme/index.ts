@@ -40,15 +40,15 @@ export const theme = createTheme({
     h1: {
       letterSpacing: "-0.05em",
       fontSize: "4.5rem",
-      fontWeight: 200,
+      fontWeight: 600,
     },
     h2: {
       letterSpacing: "-0.05em",
-      fontWeight: 200,
+      fontWeight: 600,
     },
     h3: {
       letterSpacing: "-0.05em",
-      fontWeight: 200,
+      fontWeight: 600,
     },
     // We'll get to the rest when we need them
     h6: {

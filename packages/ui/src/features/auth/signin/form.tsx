@@ -26,6 +26,12 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
+const Title = styled(Box)(({ theme }) => ({
+  marginBottom: theme.spacing(0.5),
+  fontWeight: 600,
+  fontSize: theme.typography.pxToRem(36),
+}));
+
 const validationSchema = yup.object({
   username: yup.string().required("You can't leave this empty."),
   password: yup.string().required("You can't leave this empty."),
@@ -47,9 +53,9 @@ export const SigninForm = () => {
 
   return (
     <Container>
-      <Typography variant="h1">Welcome back!</Typography>
+      <Title>Welcome back!</Title>
       <Typography
-        variant="h6"
+        variant="body2"
         sx={{
           marginBottom: 6,
         }}

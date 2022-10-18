@@ -12,6 +12,8 @@ import { useSnackbar } from "material-ui-snackbar-provider";
 import { LoadingButton } from "@mui/lab";
 import { PasswordVisibilityToggle } from "../../../components/input/password-visibility-toggle";
 
+// Styled components:
+
 const Container = styled(Box)(({ theme }) => ({
   height: "100vh",
   width: "40vw",
@@ -31,6 +33,14 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
   marginTop: theme.spacing(2),
 }));
 
+const Title = styled(Box)(({ theme }) => ({
+  marginBottom: theme.spacing(0.5),
+  fontWeight: 600,
+  fontSize: theme.typography.pxToRem(36),
+}));
+
+// Validation Schema:
+
 const validationSchema = yup.object({
   username: yup.string().required("You can't leave this empty."),
   email: yup
@@ -39,6 +49,8 @@ const validationSchema = yup.object({
     .required("You can't leave this empty."),
   password: yup.string().required("You can't leave this empty."),
 });
+
+// Component:
 
 export const SignupForm = () => {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -69,9 +81,9 @@ export const SignupForm = () => {
 
   return (
     <Container>
-      <Typography variant="h1">Glad to have you!</Typography>
+      <Title>Glad to have you!</Title>
       <Typography
-        variant="h6"
+        variant="body2"
         sx={{
           marginBottom: 6,
         }}
