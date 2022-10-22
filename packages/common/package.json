@@ -1,5 +1,5 @@
 {
-  "name": "common",
+  "name": "@tasks/common",
   "version": "0.0.1-dev",
   "author": {
     "name": "Gourab Nag",

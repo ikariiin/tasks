@@ -15,15 +15,15 @@ const Poster = styled(Box)<{ image: string }>(({ image }) => ({
   backgroundImage: `url(${image})`,
   backgroundPosition: "center",
   flexGrow: 1,
-  borderRadius: "64px 0 0 64px",
+  borderRadius: "0",
 }));
 
 const ImageOverlay = styled(Box)(({ theme }) => ({
   height: "100%",
   width: "100%",
-  backgroundColor: "rgba(0, 0, 0, 0.2)",
+  backgroundColor: "rgba(255, 255, 255, 0.15)",
   backdropFilter: "blur(7px)",
-  borderRadius: "64px 0 0 64px",
+  borderRadius: "0",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",

@@ -6,6 +6,13 @@ import { Divider } from "../../../components/divider";
 import GoogleLogin from "react-google-login";
 import { Link } from "react-router-dom";
 import { PasswordVisibilityToggle } from "../../../components/input/password-visibility-toggle";
+import { LoadingButton } from "@mui/lab";
+import { useAppDispatch } from "../../../services/store";
+import { useSnackbar } from "material-ui-snackbar-provider";
+import { useSigninMutation } from "../../../services/api/auth";
+import { setAuth } from "../../../services/store/auth";
+import { RTKQueryError } from "../../../services/types";
+import { ErrorStrings } from "@tasks/common";
 
 const Container = styled(Box)(({ theme }) => ({
   height: "100vh",
@@ -39,14 +46,34 @@ const validationSchema = yup.object({
 
 export const SigninForm = () => {
   const [showPassword, setShowPassword] = React.useState(false);
+  const dispatch = useAppDispatch();
+  const snackbar = useSnackbar();
+  const [signin, { isLoading: submitting }] = useSigninMutation();
 
   const formik = useFormik({
     initialValues: {
       username: "",
       password: "",
     },
-    onSubmit: (values) => {
-      console.log(values);
+    onSubmit: async (values) => {
+      try {
+        const response = await signin(values).unwrap();
+        dispatch(setAuth(response));
+      } catch (error) {
+        switch ((error as RTKQueryError).status) {
+          case 404:
+            snackbar.showMessage(ErrorStrings.UserNotFound);
+            formik.setFieldError("username", ErrorStrings.UserNotFound);
+            break;
+          case 401:
+            snackbar.showMessage(ErrorStrings.InvalidPassword);
+            formik.setFieldError("password", ErrorStrings.InvalidPassword);
+            break;
+          default:
+            snackbar.showMessage(ErrorStrings.GenericError);
+            break;
+        }
+      }
     },
     validationSchema,
   });
@@ -122,13 +149,22 @@ export const SigninForm = () => {
               my: 2,
             }}
             color="secondary"
+            size="small"
           >
-            <Typography variant="body2">Forgot password?</Typography>
+            Forgot password?
           </Button>
         </Link>
-        <Button type="submit" variant="contained" fullWidth size="large">
+        <LoadingButton
+          type="submit"
+          variant="contained"
+          fullWidth
+          size="large"
+          sx={{ mt: 2 }}
+          loading={submitting}
+          loadingPosition="start"
+        >
           Sign in
-        </Button>
+        </LoadingButton>
       </Form>
       <Typography variant="body1" align="center" sx={{ mt: 2 }}>
         Don&apos;t have an account?{" "}

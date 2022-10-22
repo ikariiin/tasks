@@ -11,6 +11,8 @@ import { useAppDispatch } from "../../../services/store";
 import { useSnackbar } from "material-ui-snackbar-provider";
 import { LoadingButton } from "@mui/lab";
 import { PasswordVisibilityToggle } from "../../../components/input/password-visibility-toggle";
+import { RTKQueryError } from "../../../services/types";
+import { ErrorStrings } from "@tasks/common";
 
 // Styled components:
 
@@ -54,8 +56,7 @@ const validationSchema = yup.object({
 
 export const SignupForm = () => {
   const [showPassword, setShowPassword] = React.useState(false);
-  const [submitting, setSubmitting] = React.useState(false);
-  const [signup] = useSignupMutation();
+  const [signup, { isLoading: submitting }] = useSignupMutation();
   const dispatch = useAppDispatch();
   const snackbar = useSnackbar();
 
@@ -66,14 +67,22 @@ export const SignupForm = () => {
       password: "",
     },
     onSubmit: async (values) => {
-      setSubmitting(true);
       try {
         const response = await signup(values).unwrap();
         dispatch(setAuth(response));
       } catch (error) {
-        snackbar.showMessage("Could not sign you up. Please try again.");
-      } finally {
-        setSubmitting(false);
+        switch ((error as RTKQueryError).status) {
+          case 409:
+            snackbar.showMessage(ErrorStrings.UsernameAlreadyExists);
+            formik.setFieldError(
+              "username",
+              ErrorStrings.UsernameAlreadyExists,
+            );
+            break;
+          default:
+            snackbar.showMessage(ErrorStrings.GenericError);
+            break;
+        }
       }
     },
     validationSchema,

@@ -1,12 +1,15 @@
-import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Controller, Get, VERSION_NEUTRAL } from "@nestjs/common";
+import { AppService } from "./app.service";
 
-@Controller()
+@Controller({
+  path: "/",
+  version: VERSION_NEUTRAL,
+})
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get("/")
+  public async index(): Promise<Record<string, string>> {
+    return this.appService.getIndex();
   }
 }

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PublicUserDto } from "common";
+import { PublicUserDto } from "@tasks/common";
 import { AuthState } from "./index.interface";
 
 export const initialState: AuthState = {

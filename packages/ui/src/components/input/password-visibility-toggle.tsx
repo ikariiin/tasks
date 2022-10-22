@@ -12,12 +12,8 @@ export const PasswordVisibilityToggle = ({
   return (
     <InputAdornment position="end">
       <Tooltip title="Toggle password visibility">
-        <IconButton>
-          {current ? (
-            <RiEyeCloseLine onClick={() => change(!current)} />
-          ) : (
-            <RiEyeLine onClick={() => change(!current)} />
-          )}
+        <IconButton onClick={() => change(!current)}>
+          {current ? <RiEyeCloseLine /> : <RiEyeLine />}
         </IconButton>
       </Tooltip>
     </InputAdornment>

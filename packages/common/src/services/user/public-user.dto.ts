@@ -11,4 +11,7 @@ export class PublicUserDto {
   @IsString()
   @IsEmail()
   public readonly email!: string;
+
+  @IsString()
+  public readonly token!: string;
 }
