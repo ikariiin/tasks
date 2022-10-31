@@ -25,7 +25,13 @@ const config: webpack.Configuration = {
     new webpack.DefinePlugin({
       "process.env": JSON.stringify(dotenv().parsed),
     }),
-    ...(isDevelopment ? [new ReactRefreshWebpackPlugin()] : []),
+    ...(isDevelopment
+      ? [
+          new ReactRefreshWebpackPlugin({
+            overlay: true,
+          }),
+        ]
+      : []),
   ],
   module: {
     rules: [
@@ -63,6 +69,9 @@ const config: webpack.Configuration = {
     hot: true,
   },
   mode: isDevelopment ? "development" : "production",
+  externals: {
+    "react-native-sqlite-storage": "react-native-sqlite-storage",
+  },
 };
 
 export default config;

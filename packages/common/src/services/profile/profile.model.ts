@@ -1,4 +1,10 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
 import { User } from "../user/user.model";
 
 @Entity()
@@ -28,6 +34,9 @@ export class Profile {
   @Column()
   public updatedAt!: Date;
 
-  @OneToOne(() => User, (user) => user.profile)
+  @OneToOne(() => User, (user) => user.profile, {
+    cascade: true,
+  })
+  @JoinColumn()
   public user!: User;
 }

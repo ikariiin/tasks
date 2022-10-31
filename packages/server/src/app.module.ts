@@ -3,12 +3,13 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Profile, User } from "@tasks/common";
+import { Profile, User, Board } from "@tasks/common";
 import { AuthModule } from "./services/auth";
 import { UserModule } from "./services/user";
 import { ProfileModule } from "./services/profile";
+import { BoardModule } from "./services/board/board.module";
 
-const entities = [User, Profile];
+const entities = [User, Profile, Board];
 
 @Module({
   imports: [
@@ -27,11 +28,13 @@ const entities = [User, Profile];
         database: configService.get<string>("DB_DATABASE"),
         entities,
         synchronize: true,
+        logging: "all",
       }),
     }),
     AuthModule,
     UserModule,
     ProfileModule,
+    BoardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

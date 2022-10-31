@@ -4,7 +4,7 @@ import * as yup from "yup";
 import React from "react";
 import { Divider } from "../../../components/divider";
 import GoogleLogin from "react-google-login";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSignupMutation } from "../../../services/api/auth";
 import { setAuth } from "../../../services/store/auth";
 import { useAppDispatch } from "../../../services/store";
@@ -59,6 +59,7 @@ export const SignupForm = () => {
   const [signup, { isLoading: submitting }] = useSignupMutation();
   const dispatch = useAppDispatch();
   const snackbar = useSnackbar();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -70,6 +71,7 @@ export const SignupForm = () => {
       try {
         const response = await signup(values).unwrap();
         dispatch(setAuth(response));
+        navigate("/");
       } catch (error) {
         switch ((error as RTKQueryError).status) {
           case 409:

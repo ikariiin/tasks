@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PublicUserDto } from "@tasks/common";
+import { PrivateUserDto } from "@tasks/common";
 import { AuthState } from "./index.interface";
 
 export const initialState: AuthState = {
@@ -10,7 +10,7 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAuth: (state, action: PayloadAction<PublicUserDto>) => {
+    setAuth: (state, action: PayloadAction<PrivateUserDto>) => {
       state.user = action.payload;
     },
     clearAuth: (state) => {

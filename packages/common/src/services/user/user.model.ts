@@ -1,10 +1,12 @@
+import { Exclude } from "class-transformer";
 import {
   Column,
   Entity,
-  JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Board } from "../board/board.model";
 import { Profile } from "../profile/profile.model";
 
 @Entity()
@@ -23,6 +25,7 @@ export class User {
   public email!: string;
 
   @Column()
+  @Exclude()
   public password!: string;
 
   @Column()
@@ -35,6 +38,11 @@ export class User {
   public lastLoginAt!: Date;
 
   @OneToOne(() => Profile, (profile) => profile.user)
-  @JoinColumn()
   public profile!: Profile;
+
+  @OneToMany(() => Board, (board) => board.owner)
+  public ownBoards!: Board[];
+
+  @OneToMany(() => Board, (board) => board.members)
+  public memberBoards!: Board[];
 }

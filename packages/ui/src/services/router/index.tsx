@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { AuthRouter } from "./auth.router";
 import { UnAuthRouter } from "./unauth.router";
 
 export const Router = () => {
@@ -10,5 +11,5 @@ export const Router = () => {
     return <UnAuthRouter />;
   }
 
-  return null;
+  return <AuthRouter />;
 };

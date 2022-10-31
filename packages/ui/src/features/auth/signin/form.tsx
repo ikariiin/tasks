@@ -4,7 +4,7 @@ import * as yup from "yup";
 import React from "react";
 import { Divider } from "../../../components/divider";
 import GoogleLogin from "react-google-login";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PasswordVisibilityToggle } from "../../../components/input/password-visibility-toggle";
 import { LoadingButton } from "@mui/lab";
 import { useAppDispatch } from "../../../services/store";
@@ -49,6 +49,7 @@ export const SigninForm = () => {
   const dispatch = useAppDispatch();
   const snackbar = useSnackbar();
   const [signin, { isLoading: submitting }] = useSigninMutation();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -59,6 +60,7 @@ export const SigninForm = () => {
       try {
         const response = await signin(values).unwrap();
         dispatch(setAuth(response));
+        navigate("/");
       } catch (error) {
         switch ((error as RTKQueryError).status) {
           case 404:

@@ -3,4 +3,6 @@ export const ErrorStrings = {
   UserNotFound: "User not found",
   InvalidPassword: "Invalid password, please try again",
   GenericError: "Something went wrong, please try again",
+  UserAlreadyInTeam: "User is already a member of the team",
+  BoardNotFound: "Board requested for does not exist",
 };

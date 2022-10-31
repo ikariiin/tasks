@@ -1,17 +1,18 @@
-import { IsEmail, IsString } from "class-validator";
+import { User } from "./user.model";
 
 export class PublicUserDto {
-  public constructor(partial: Partial<PublicUserDto>) {
-    Object.assign(this, partial);
+  public constructor(user: User) {
+    this.id = user.id;
+    this.username = user.username;
+    this.email = user.email;
+    this.lastLoginAt = user.lastLoginAt;
   }
 
-  @IsString()
-  public readonly username!: string;
+  public id!: number;
 
-  @IsString()
-  @IsEmail()
-  public readonly email!: string;
+  public username!: string;
 
-  @IsString()
-  public readonly token!: string;
+  public email!: string;
+
+  public lastLoginAt!: Date;
 }

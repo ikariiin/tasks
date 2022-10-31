@@ -6,7 +6,7 @@ import {
 import { JwtService } from "@nestjs/jwt";
 import { UserService } from "../user";
 import * as argon2 from "argon2";
-import { ErrorStrings, PublicUserDto, SignupDto, User } from "@tasks/common";
+import { ErrorStrings, PrivateUserDto, SignupDto, User } from "@tasks/common";
 
 @Injectable()
 export class AuthService {
@@ -31,7 +31,7 @@ export class AuthService {
     return user;
   }
 
-  public async signin(user: User): Promise<PublicUserDto> {
+  public async signin(user: User): Promise<PrivateUserDto> {
     const payload = {
       username: user.username,
       sub: user.id,
@@ -44,7 +44,7 @@ export class AuthService {
     };
   }
 
-  public async signup(signupDto: SignupDto): Promise<PublicUserDto> {
+  public async signup(signupDto: SignupDto): Promise<PrivateUserDto> {
     const user = await this.userService.createUser(signupDto);
     return this.signin(user);
   }

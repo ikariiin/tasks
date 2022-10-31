@@ -46,8 +46,6 @@ export class UserService {
     });
 
     const user = await this.userRepository.save(creationUser);
-    // TODO:
-    // const profile = await this.profileService.createProfile(user);
 
     return user;
   }

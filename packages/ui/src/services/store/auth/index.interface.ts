@@ -1,5 +1,5 @@
-import { PublicUserDto } from "@tasks/common";
+import { PrivateUserDto } from "@tasks/common";
 
 export interface AuthState {
-  user: PublicUserDto | null;
+  user: PrivateUserDto | null;
 }
