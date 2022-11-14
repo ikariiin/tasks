@@ -3,13 +3,14 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Profile, User, Board } from "@tasks/common";
+import { Profile, User, Board, Tag, Preference } from "@tasks/common";
 import { AuthModule } from "./services/auth";
 import { UserModule } from "./services/user";
 import { ProfileModule } from "./services/profile";
 import { BoardModule } from "./services/board/board.module";
+import { PreferenceModule } from "./services/preference";
 
-const entities = [User, Profile, Board];
+const entities = [User, Profile, Board, Tag, Preference];
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ const entities = [User, Profile, Board];
     UserModule,
     ProfileModule,
     BoardModule,
+    PreferenceModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -2,11 +2,13 @@ import { Exclude } from "class-transformer";
 import {
   Column,
   Entity,
+  JoinColumn,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Board } from "../board/board.model";
+import { Preference } from "../preference/preference.model";
 import { Profile } from "../profile/profile.model";
 
 @Entity()
@@ -45,4 +47,10 @@ export class User {
 
   @OneToMany(() => Board, (board) => board.members)
   public memberBoards!: Board[];
+
+  @OneToOne(() => Preference, (preference) => preference.user, {
+    cascade: true,
+  })
+  @JoinColumn()
+  public preference!: Preference;
 }

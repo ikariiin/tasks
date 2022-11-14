@@ -14,10 +14,12 @@ import {
   REHYDRATE,
   persistStore,
 } from "redux-persist";
+import { boardApi } from "../api/board";
 
 const reducers = combineReducers({
   auth: authSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [boardApi.reducerPath]: boardApi.reducer,
 });
 const persistConfig = {
   key: "root",
@@ -33,7 +35,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware),
+    }).concat(authApi.middleware, boardApi.middleware),
 });
 
 setupListeners(store.dispatch);

@@ -1,13 +1,13 @@
 import {
   Column,
   Entity,
-  JoinColumn,
   JoinTable,
   ManyToMany,
   ManyToOne,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+import { Tag } from "../tag";
 import { User } from "../user";
 
 @Entity()
@@ -31,6 +31,12 @@ export class Board {
   })
   @JoinTable()
   public members!: User[];
+
+  @OneToMany(() => Tag, (tag) => tag.board, {
+    cascade: true,
+    eager: true,
+  })
+  public tags!: Tag[];
 
   @Column()
   public name!: string;

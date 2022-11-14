@@ -1,4 +1,4 @@
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, GlobalStyles, ThemeProvider } from "@mui/material";
 import { SnackbarProvider } from "material-ui-snackbar-provider";
 import React from "react";
 import { Provider } from "react-redux";
@@ -27,6 +27,14 @@ export const Root = () => {
                 }}
               >
                 <CssBaseline />
+                <GlobalStyles
+                  styles={{
+                    a: {
+                      color: "inherit",
+                      textDecoration: "none",
+                    },
+                  }}
+                />
                 <Router />
               </SnackbarProvider>
             </ThemeProvider>
