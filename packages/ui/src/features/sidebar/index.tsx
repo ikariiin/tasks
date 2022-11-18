@@ -6,7 +6,7 @@ import { NewBoardButton } from "./new-board-button";
 
 const Aside = styled(Box)(({ theme }) => ({
   height: "100%",
-  padding: theme.spacing(2),
+  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
   overflow: "auto",
   display: "flex",
   flexDirection: "column",

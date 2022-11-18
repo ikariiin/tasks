@@ -1,4 +1,5 @@
 import { Board } from ".";
+import { TagDto } from "../tag";
 import { PublicUserDto } from "../user/public-user.dto";
 
 export class BoardDto {
@@ -7,6 +8,7 @@ export class BoardDto {
     this.name = board.name;
     this.owner = new PublicUserDto(board.owner);
     this.members = board.members.map((member) => new PublicUserDto(member));
+    this.tags = board.tags.map((tag) => new TagDto(tag));
     this.updatedAt = board.updatedAt;
   }
 
@@ -15,6 +17,8 @@ export class BoardDto {
   public name!: string;
 
   public description!: string;
+
+  public tags!: TagDto[];
 
   public owner!: PublicUserDto;
 

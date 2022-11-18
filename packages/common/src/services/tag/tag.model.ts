@@ -1,6 +1,7 @@
 import { Exclude } from "class-transformer";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Board } from "../board";
+import { User } from "../user";
 
 @Entity()
 export class Tag {
@@ -20,6 +21,13 @@ export class Tag {
 
   @Column()
   public color!: string;
+
+  @Column()
+  public contrastText!: string;
+
+  @Exclude()
+  @ManyToOne(() => User)
+  public owner!: User;
 
   @Column()
   public createdAt!: Date;

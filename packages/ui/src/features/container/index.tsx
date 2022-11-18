@@ -12,11 +12,18 @@ const ContainerElement = styled(Box)(({ theme }) => ({
   height: "100vh",
 }));
 
+const OutletContainer = styled(Box)(({ theme }) => ({
+  padding: `${theme.spacing(2)} ${theme.spacing(1)}`,
+  height: "100%",
+}));
+
 export const Container = () => {
   return (
     <ContainerElement>
       <Sidebar />
-      <Outlet />
+      <OutletContainer>
+        <Outlet />
+      </OutletContainer>
     </ContainerElement>
   );
 };

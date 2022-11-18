@@ -1,4 +1,4 @@
-import { IsString, IsUUID, Length } from "class-validator";
+import { IsOptional, IsString, IsUUID, Length } from "class-validator";
 import { Config } from "../config";
 
 export class CreateTagDto {
@@ -10,6 +10,11 @@ export class CreateTagDto {
   public color!: string;
 
   @IsString()
+  @Length(Config.HEX_COLOR_LENGTH, Config.HEX_COLOR_LENGTH)
+  public contrastText!: string;
+
+  @IsString()
   @IsUUID(Config.UUID_VERSION)
-  public boardId!: string;
+  @IsOptional()
+  public boardId?: string;
 }

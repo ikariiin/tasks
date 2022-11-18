@@ -63,7 +63,7 @@ export const Boards = () => {
               sx={{
                 borderRadius: 1,
               }}
-              selected={location.pathname === `/board/${board.id}`}
+              selected={location.pathname.includes(`/board/${board.id}`)}
             >
               <ListItemIcon
                 sx={{
@@ -73,7 +73,10 @@ export const Boards = () => {
               >
                 <RiDashboardLine />
               </ListItemIcon>
-              <ListItemText primary={board.name} />
+              <ListItemText
+                primary={board.name}
+                secondary={`${board.members.length} members`}
+              />
             </ListItemButton>
           </NavLink>
         ))}
