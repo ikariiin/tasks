@@ -41,7 +41,7 @@ export const Board = () => {
   return (
     <Container>
       <BoardHeader
-        boardId={board.id}
+        board={board}
         title={board.name}
         description={board.description}
       />

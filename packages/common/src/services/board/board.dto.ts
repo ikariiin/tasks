@@ -4,6 +4,7 @@ import { PublicUserDto } from "../user/public-user.dto";
 
 export class BoardDto {
   public constructor(board: Board) {
+    console.log(board);
     this.id = board.id;
     this.name = board.name;
     this.owner = new PublicUserDto(board.owner);

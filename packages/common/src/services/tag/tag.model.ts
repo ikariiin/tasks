@@ -14,7 +14,7 @@ export class Tag {
 
   @Exclude()
   @ManyToOne(() => Board, (board) => board.tags)
-  public board!: Board;
+  public board?: Board | null;
 
   @Column()
   public name!: string;

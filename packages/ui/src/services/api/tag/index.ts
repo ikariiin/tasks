@@ -16,6 +16,7 @@ export const tagApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Tag", "Board"],
   endpoints: (builder) => ({
     createTag: builder.mutation<TagDto, CreateTagDto>({
       query: (tagDto) => ({
@@ -23,6 +24,17 @@ export const tagApi = createApi({
         method: "POST",
         body: tagDto,
       }),
+      invalidatesTags: ["Tag", "Board"],
+    }),
+    getTagsByUser: builder.query<TagDto[], void>({
+      query: () => "",
+      providesTags: ["Tag"],
     }),
   }),
 });
+
+export const {
+  useCreateTagMutation,
+  useGetTagsByUserQuery,
+  useLazyGetTagsByUserQuery,
+} = tagApi;

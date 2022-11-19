@@ -6,7 +6,7 @@ export const TagStrings = {
   titleEdit: "Edit Tag",
   titleView: "View Tag",
   titleViewAll: "View All Tags",
-  add: "Add Tag",
+  addTitle: "Add Tag",
   descriptionCreate: "Create a new tag with the color and name you provide.",
   name: "Tag Name",
 };

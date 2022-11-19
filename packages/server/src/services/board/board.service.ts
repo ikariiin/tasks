@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   forwardRef,
   Inject,
   Injectable,
@@ -13,6 +14,7 @@ import {
   User,
 } from "@tasks/common";
 import { Repository } from "typeorm";
+import { TagService } from "../tag/tag.service";
 import { UserService } from "../user";
 
 @Injectable()
@@ -22,6 +24,8 @@ export class BoardService {
     private readonly boardRepository: Repository<Board>,
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
+    @Inject(forwardRef(() => TagService))
+    private readonly tagService: TagService,
   ) {}
 
   public async createBoard(boardDto: CreateBoardDto, user: User) {
@@ -60,13 +64,12 @@ export class BoardService {
   public async getBoards(user: User) {
     const boards = await this.boardRepository.find({
       where: {
-        owner: user,
+        owner: {
+          id: user.id,
+        },
       },
+      loadEagerRelations: true,
     });
-
-    if (boards.length === 0) {
-      throw new NotFoundException(ErrorStrings.BoardNotFound);
-    }
 
     return boards.map((board) => new BoardDto(board));
   }
@@ -112,5 +115,43 @@ export class BoardService {
     const board = await this.getBoard(user, id);
 
     return board.members.map((member) => new User(member));
+  }
+
+  public async removeTagFromBoard(user: User, tagId: string, boardId: string) {
+    // Check if the user is the owner of the board
+    const board = await this.boardRepository.findOne({
+      where: {
+        id: boardId,
+      },
+    });
+
+    if (!board) {
+      throw new NotFoundException(ErrorStrings.BoardNotFound);
+    }
+
+    if (board.owner.id !== user.id) {
+      throw new ForbiddenException(ErrorStrings.OperationNotAllowed);
+    }
+
+    return this.tagService.removeTagFromBoard(tagId, boardId);
+  }
+
+  public async addTagToBoard(user: User, tagId: string, boardId: string) {
+    // Check if the user is the owner of the board
+    const board = await this.boardRepository.findOne({
+      where: {
+        id: boardId,
+      },
+    });
+
+    if (!board) {
+      throw new NotFoundException(ErrorStrings.BoardNotFound);
+    }
+
+    if (board.owner.id !== user.id) {
+      throw new ForbiddenException(ErrorStrings.OperationNotAllowed);
+    }
+
+    return this.tagService.addTagToBoard(tagId, board);
   }
 }

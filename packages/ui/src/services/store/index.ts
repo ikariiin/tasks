@@ -15,16 +15,19 @@ import {
   persistStore,
 } from "redux-persist";
 import { boardApi } from "../api/board";
+import { tagApi } from "../api/tag";
 
 const reducers = combineReducers({
   auth: authSlice.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [boardApi.reducerPath]: boardApi.reducer,
+  [tagApi.reducerPath]: tagApi.reducer,
 });
 const persistConfig = {
   key: "root",
   storage,
   version: 1,
+  whitelist: ["auth"],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
@@ -35,7 +38,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(authApi.middleware, boardApi.middleware),
+    }).concat(authApi.middleware, boardApi.middleware, tagApi.middleware),
 });
 
 setupListeners(store.dispatch);

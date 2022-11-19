@@ -5,10 +5,9 @@ import { NavLink, useLocation } from "react-router-dom";
 
 const Container = styled(Box)(({ theme }) => ({
   display: "flex",
-  marginTop: theme.spacing(1),
   "& > *": {
     margin: theme.spacing(1),
-    "&:first-child": {
+    "&:first-of-type": {
       marginLeft: 0,
     },
   },

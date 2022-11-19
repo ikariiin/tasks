@@ -2,6 +2,7 @@ import { Box, InputAdornment, styled, TextField } from "@mui/material";
 import React from "react";
 import { RiSearchLine } from "react-icons/ri";
 import { Boards } from "./boards";
+import { NavBar } from "./nav-bar";
 import { NewBoardButton } from "./new-board-button";
 
 const Aside = styled(Box)(({ theme }) => ({
@@ -15,6 +16,7 @@ const Aside = styled(Box)(({ theme }) => ({
 export const Sidebar = () => {
   return (
     <Aside>
+      <NavBar />
       <TextField
         placeholder="Search"
         size="small"

@@ -2,6 +2,7 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -63,5 +64,27 @@ export class BoardController {
   @Get(":id/members")
   public async getMembers(@CurrentUser() user: User, @Param("id") id: string) {
     return this.service.getMembers(user, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Delete(":id/tag/:tagId")
+  public async deleteTag(
+    @CurrentUser() user: User,
+    @Param("id") id: string,
+    @Param("tagId") tagId: string,
+  ) {
+    return this.service.removeTagFromBoard(user, tagId, id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(ClassSerializerInterceptor)
+  @Post(":id/tag/:tagId")
+  public async addTag(
+    @CurrentUser() user: User,
+    @Param("id") id: string,
+    @Param("tagId") tagId: string,
+  ) {
+    return this.service.addTagToBoard(user, tagId, id);
   }
 }

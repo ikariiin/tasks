@@ -1,5 +1,5 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
-import { BoardDto, CreateBoardDto } from "@tasks/common";
+import { BoardDto, CreateBoardDto, TagDto } from "@tasks/common";
 import { RootState } from "../../store";
 
 export const boardApi = createApi({
@@ -16,18 +16,21 @@ export const boardApi = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Board", "Tag", "User"],
   endpoints: (builder) => ({
     getBoard: builder.query<BoardDto, string>({
       query: (id) => ({
         url: `/${id}`,
         method: "GET",
       }),
+      providesTags: ["Board", "Tag", "User"],
     }),
     getBoards: builder.query<BoardDto[], void>({
       query: () => ({
         url: "/",
         method: "GET",
       }),
+      providesTags: ["Board", "Tag", "User"],
     }),
     createBoard: builder.mutation<BoardDto, CreateBoardDto>({
       query: (body) => ({
@@ -35,19 +38,41 @@ export const boardApi = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["Board", "Tag", "User"],
     }),
     joinBoard: builder.mutation<BoardDto, number>({
       query: (id) => ({
         url: `/${id}/join`,
         method: "GET",
       }),
+      invalidatesTags: ["Board", "User"],
     }),
     leaveBoard: builder.mutation<BoardDto, number>({
       query: (id) => ({
         url: `/${id}/leave`,
         method: "GET",
       }),
+      invalidatesTags: ["Board", "User"],
     }),
+    removeTagFromBoard: builder.mutation<
+      TagDto,
+      { tagId: string; boardId: string }
+    >({
+      query: ({ boardId, tagId }) => ({
+        url: `/${boardId}/tag/${tagId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Board", "Tag"],
+    }),
+    addTagToBoard: builder.mutation<TagDto, { tagId: string; boardId: string }>(
+      {
+        query: ({ boardId, tagId }) => ({
+          url: `/${boardId}/tag/${tagId}`,
+          method: "POST",
+        }),
+        invalidatesTags: ["Board", "Tag"],
+      },
+    ),
   }),
 });
 
@@ -57,4 +82,6 @@ export const {
   useCreateBoardMutation,
   useJoinBoardMutation,
   useLeaveBoardMutation,
+  useRemoveTagFromBoardMutation,
+  useAddTagToBoardMutation,
 } = boardApi;

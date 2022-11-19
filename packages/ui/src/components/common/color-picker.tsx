@@ -19,6 +19,7 @@ const Display = React.forwardRef(function DisplayComponent(
         borderRadius: "50%",
         backgroundColor: props.color,
         cursor: "pointer",
+        boxShadow: 4,
       }}
       ref={ref}
       {...props}
