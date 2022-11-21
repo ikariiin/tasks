@@ -5,7 +5,6 @@ import { PublicUserDto } from "../user/public-user.dto";
 
 export class TagDto {
   public constructor(tag: Tag) {
-    console.log("tag> owner", tag);
     this.id = tag.id;
     this.name = tag.name;
     this.color = tag.color;

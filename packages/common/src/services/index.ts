@@ -5,3 +5,6 @@ export * from "./strings";
 export * from "./board";
 export * from "./tag";
 export * from "./preference";
+export * from "./discussion";
+export * from "./attachment";
+export * from "./message";
