@@ -20,6 +20,7 @@ async function bootstrap() {
     credentials: true,
     origin: "http://localhost:7000",
   });
+  app.setGlobalPrefix("api");
 
   const configService = app.get(ConfigService);
 

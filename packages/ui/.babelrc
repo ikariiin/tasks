@@ -3,8 +3,5 @@
     "@babel/env",
     "@babel/react",
     "@babel/typescript"
-  ],
-  "plugins": [
-    "react-refresh/babel"
   ]
 }

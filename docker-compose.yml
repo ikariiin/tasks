@@ -1,5 +1,16 @@
 version: '3.9'
 services:
+  ui:
+    container_name: ui
+    environment:
+      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: ./packages/ui/Dockerfile
+      args:
+        - BUILD_CONTEXT=ui
+    ports:
+      - '80:80'
   pgdb:
     image: postgres:14.1-alpine
     environment:
@@ -9,8 +20,25 @@ services:
     restart: always
     ports:
       - "5432:5432"
+    expose:
+      - "5432"
     volumes:
       - db:/var/lib/postgresql/data
+  server:
+    container_name: server
+    environment:
+      - NODE_ENV=production
+    build:
+      context: .
+      dockerfile: ./packages/server/Dockerfile
+      args:
+        - BUILD_CONTEXT=server
+    ports:
+      - '3000:3000'
+    expose:
+      - "3000"
+    depends_on:
+      - pgdb
 
 volumes:
   db:

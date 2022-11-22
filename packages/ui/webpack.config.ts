@@ -3,12 +3,12 @@ import HtmlWebpackPlugin from "html-webpack-plugin";
 import webpack from "webpack";
 import path from "path";
 import ReactRefreshWebpackPlugin from "@pmmmwh/react-refresh-webpack-plugin";
-// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import webpackDevServer from "webpack-dev-server";
 
 dotenv();
 
-const isDevelopment = process.env.NODE_ENV !== "production";
+const isDevelopment = process.env.NODE_ENV === "development";
 
 const config: webpack.Configuration = {
   entry: [path.join(path.resolve(__dirname, "src"), "index.tsx")],
@@ -67,6 +67,11 @@ const config: webpack.Configuration = {
     historyApiFallback: true,
     port: process.env.DEV_PORT || 3000,
     hot: true,
+    proxy: {
+      "/api": {
+        target: process.env.API_URL || "http://localhost:3000",
+      },
+    },
   },
   mode: isDevelopment ? "development" : "production",
   externals: {
