@@ -76,7 +76,7 @@ export const TagEditor = ({
         <ActionButtonContainer>
           <Button
             variant="contained"
-            size="medium"
+            size="small"
             color="primary"
             onClick={() => setOpen((val) => !val)}
           >

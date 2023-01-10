@@ -48,4 +48,11 @@ export class AuthService {
     const user = await this.userService.createUser(signupDto);
     return this.signin(user);
   }
+
+  public async verify(token: string): Promise<User | null> {
+    const decoded = this.jwtService.verify(token);
+    if (!decoded) return null;
+
+    return this.userService.getUser(decoded.username);
+  }
 }

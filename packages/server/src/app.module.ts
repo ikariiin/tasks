@@ -19,6 +19,7 @@ import { ProfileModule } from "./services/profile";
 import { BoardModule } from "./services/board/board.module";
 import { PreferenceModule } from "./services/preference";
 import { TagModule } from "./services/tag/tag.module";
+import { MessageModule } from "./services/message/message.module";
 
 const entities = [
   User,
@@ -57,6 +58,7 @@ const entities = [
     BoardModule,
     PreferenceModule,
     TagModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

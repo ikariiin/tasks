@@ -64,11 +64,16 @@ const config: webpack.Configuration = {
   },
   devtool: "source-map",
   devServer: {
-    historyApiFallback: true,
+    historyApiFallback: {
+      index: "index.html",
+    },
     port: process.env.DEV_PORT || 3000,
     hot: true,
     proxy: {
       "/api": {
+        target: process.env.API_URL || "http://localhost:3000",
+      },
+      "/ws": {
         target: process.env.API_URL || "http://localhost:3000",
       },
     },

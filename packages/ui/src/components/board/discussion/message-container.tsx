@@ -3,7 +3,7 @@ import { MessageDto } from "@tasks/common";
 import React from "react";
 
 export interface MessageContainerProps {
-  messages: MessageDto[];
+  messages: Array<MessageDto>;
 }
 
 export const Container = styled(Box)(() => ({
@@ -14,7 +14,7 @@ export const Container = styled(Box)(() => ({
 export const MessageContainer = ({ messages }: MessageContainerProps) => {
   return (
     <Container>
-      <div>message container</div>
+      <pre>{JSON.stringify(messages, null, 2)}</pre>
     </Container>
   );
 };

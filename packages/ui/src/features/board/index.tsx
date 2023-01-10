@@ -3,6 +3,7 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useGetBoardQuery } from "../../services/api/board";
+import { BoardContext } from "./context";
 import { BoardHeader } from "./header";
 
 const Container = styled(Box)(() => ({
@@ -45,9 +46,16 @@ export const Board = () => {
         title={board.name}
         description={board.description}
       />
-      <OutletContainer>
-        <Outlet />
-      </OutletContainer>
+      <BoardContext.Provider
+        value={{
+          board,
+          boardId: id ?? null,
+        }}
+      >
+        <OutletContainer>
+          <Outlet />
+        </OutletContainer>
+      </BoardContext.Provider>
     </Container>
   );
 };
